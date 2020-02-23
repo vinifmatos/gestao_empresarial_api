@@ -6,8 +6,8 @@ FactoryBot.define do
     telefone { Faker::PhoneNumber.phone_number }
     email { Faker::Internet.email(name: nome) }
 
-    after(:buld) do |cliente|
-      cliente.endereco_cliente << build(:endereco_cliente)
+    after(:build) do |cliente|
+      cliente.endereco_cliente = build(:endereco_cliente, cliente: cliente)
     end
   end
 end

@@ -13,6 +13,24 @@ RSpec.describe 'Clientes', type: :request do
       expect(response).to have_http_status(200)
       expect(response.body).to include_json(Cliente.all.as_json)
     end
+
+    it 'inclui o endereço do cliente' do
+      get clientes_path
+      expect(response.body).to include_json(
+        [
+          {
+            endereco_cliente: {
+              id: /\d*/,
+              logradouro: /.*/,
+              numero: /.*/,
+              bairro: /.*/,
+              cidade: /.*/,
+              cep: /.*/
+            }
+          }
+        ]
+      )
+    end
   end
 
   describe 'GET /clientes/:id' do
@@ -21,6 +39,21 @@ RSpec.describe 'Clientes', type: :request do
       get cliente_path(cliente)
       expect(response).to have_http_status(200)
       expect(response.body).to include_json(cliente.as_json)
+    end
+
+    it 'inclui o endereço do cliente' do
+      cliente = Cliente.first
+      get cliente_path(cliente)
+      expect(response.body).to include_json(
+        endereco_cliente: {
+          id: /\d*/,
+          logradouro: /.*/,
+          numero: /.*/,
+          bairro: /.*/,
+          cidade: /.*/,
+          cep: /.*/
+        }
+      )
     end
   end
 
