@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Cliente < ApplicationRecord
-  has_one :endereco_cliente, dependente: :destroy
+  has_one :endereco_cliente, dependent: :destroy
   validates :nome, :telefone, presence: true
   validates :email, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
 
