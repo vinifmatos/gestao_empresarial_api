@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ClientesController < ApplicationController
-  before_action :set_cliente, only: [:show, :update, :destroy]
+  before_action :set_cliente, only: %i[show update destroy]
 
   # GET /clientes
   def index
@@ -39,13 +41,17 @@ class ClientesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cliente
-      @cliente = Cliente.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def cliente_params
-      params.require(:cliente).permit(:nome, :telefone, :email)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cliente
+    @cliente = Cliente.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def cliente_params
+    params.require(:cliente).permit(
+      :nome, :telefone, :email,
+      endereco_cliente_attributes: %i[id logradouro numero bairro cidade cep]
+    )
+  end
 end
