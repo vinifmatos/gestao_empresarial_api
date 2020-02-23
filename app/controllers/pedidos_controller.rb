@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PedidosController < ApplicationController
-  before_action :set_pedido, only: [:show, :update, :destroy]
+  before_action :set_pedido, only: %i[show update destroy]
 
   # GET /pedidos
   def index
@@ -39,13 +41,18 @@ class PedidosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_pedido
-      @pedido = Pedido.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def pedido_params
-      params.require(:pedido).permit(:cliente_id, :situacao, :prazo_entrega, :data_entrega)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_pedido
+    @pedido = Pedido.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def pedido_params
+    params.require(:pedido).permit(
+      :cliente_id, :situacao, :prazo_entrega,
+      :data_entrega,
+      pedido_itens_attributes: %i[id produto_id quantidade valor_unitario valor_total]
+    )
+  end
 end

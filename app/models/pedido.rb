@@ -2,7 +2,9 @@
 
 class Pedido < ApplicationRecord
   belongs_to :cliente
-  has_many :pedido_itens
+  has_many :pedido_itens, dependent: :destroy
+
+  accepts_nested_attributes_for :pedido_itens, allow_destroy: true
 
   enum situacao: { em_aberto: 0, cancelado: 1, em_andamento: 2, pronto_entrega: 3, finalizado: 4 }
 
