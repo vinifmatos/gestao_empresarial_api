@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2020_02_23_015700) do
   enable_extension "plpgsql"
 
   create_table "caixas", force: :cascade do |t|
-    t.bigint "pedido_id", null: false
+    t.bigint "pedido_id"
     t.integer "tipo"
     t.integer "situacao"
     t.decimal "valor"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_02_23_015700) do
     t.datetime "data_baixa"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "fornecedor_id", null: false
+    t.bigint "fornecedor_id"
     t.date "data_estorno"
     t.index ["fornecedor_id"], name: "index_caixas_on_fornecedor_id"
     t.index ["pedido_id"], name: "index_caixas_on_pedido_id"
