@@ -76,7 +76,7 @@ RSpec.describe 'Pedidos', type: :request do
   end
 
   describe 'PUT /pedidos/:id' do
-    it 'retorna código 200 e um json com pedido criado' do
+    it 'retorna código 200 e um json com pedido atualizado' do
       pedido = Pedido.select(:id, :prazo_entrega).last
       pedido.prazo_entrega = 1
       attributes = pedido.attributes

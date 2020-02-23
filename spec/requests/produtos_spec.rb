@@ -35,7 +35,7 @@ RSpec.describe 'Produtos', type: :request do
   end
 
   describe 'PUT /produtos/:id' do
-    it 'retorna código 200 e um json com produto criado' do
+    it 'retorna código 200 e um json com produto atualizado' do
       produto = Produto.select(:id, :descricao).last
       produto.descricao = '0000'
       attributes = produto.attributes

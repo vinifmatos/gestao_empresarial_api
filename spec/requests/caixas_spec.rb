@@ -35,7 +35,7 @@ RSpec.describe 'Caixas', type: :request do
   end
 
   describe 'PUT /caixas/:id' do
-    it 'retorna código 200 e um json com caixa criado' do
+    it 'retorna código 200 e um json com caixa atualizado' do
       caixa = Caixa.select(:id, :valor).last
       caixa.valor = caixa.valor + 2
       attributes = caixa.attributes
