@@ -12,6 +12,8 @@ class Pedido < ApplicationRecord
   validates :prazo_entrega, numericality: { greater_than_or_equal_to: 0 }
   validate :valida_data_entrega
 
+  alias_attribute :data, :created_at
+
   def valor
     valor = 0
     pedido_itens.each { |i| valor += i.valor_total }

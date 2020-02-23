@@ -17,7 +17,7 @@ FactoryBot.define do
       v *= -1 if conta_a_pagar
       v
     end
-    data { com_pedido ? pedido.created_at : Faker::Date.in_date_period }
+    data { com_pedido ? pedido.data : Faker::Date.in_date_period }
     data_baixa { nil }
   end
 end
