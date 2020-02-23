@@ -35,7 +35,7 @@ RSpec.describe 'Fornecedores', type: :request do
   end
 
   describe 'PUT /fornecedores/:id' do
-    it 'retorna código 201 e um json com fornecedor criado' do
+    it 'retorna código 200 e um json com fornecedor criado' do
       fornecedor = Fornecedor.select(:id, :nome).last
       fornecedor.nome = '0000'
       attributes = fornecedor.attributes

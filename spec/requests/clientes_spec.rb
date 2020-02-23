@@ -35,7 +35,7 @@ RSpec.describe 'Clientes', type: :request do
   end
 
   describe 'PUT /clientes/:id' do
-    it 'retorna código 201 e um json com cliente criado' do
+    it 'retorna código 200 e um json com cliente criado' do
       cliente = Cliente.select(:id, :nome).last
       cliente.nome = '0000'
       attributes = cliente.attributes
