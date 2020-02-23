@@ -5,7 +5,7 @@ class Cliente < ApplicationRecord
   validates :nome, :telefone, presence: true
   validates :email, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
 
-  accepts_nested_attributes_for :endereco_cliente, allow_destroy: true
+  accepts_nested_attributes_for :endereco_cliente
 
   def as_json(_options = {})
     super(
