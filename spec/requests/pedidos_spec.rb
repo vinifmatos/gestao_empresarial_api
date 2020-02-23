@@ -8,10 +8,32 @@ RSpec.describe 'Pedidos', type: :request do
   end
 
   describe 'GET /pedidos' do
-    it 'retorna código 200 e um array com os lançamentos' do
+    it 'retorna código 200 e um array com os pedidos' do
       get pedidos_path
       expect(response).to have_http_status(200)
       expect(response.body).to include_json(Pedido.all.as_json)
+    end
+
+    it 'retorna um array com os itens do pedido e o produto de cada item' do
+      get pedidos_path
+      expect(response.body).to include_json(
+        [
+          {
+            pedido_itens: [
+              {
+                id: /\d*/,
+                quantidade: /(?:\d*\.\d*|\d)/,
+                valor_unitario: /(?:\d*\.\d*|\d)/,
+                valor_total: /(?:\d*\.\d*|\d)/,
+                produto: {
+                  id: /\d*/,
+                  descricao: /.*/
+                }
+              }
+            ]
+          }
+        ]
+      )
     end
   end
 
@@ -21,6 +43,25 @@ RSpec.describe 'Pedidos', type: :request do
       get pedido_path(pedido)
       expect(response).to have_http_status(200)
       expect(response.body).to include_json(pedido.as_json)
+    end
+
+    it 'retorna um array com os itens do pedido e o produto de cada item' do
+      pedido = Pedido.first
+      get pedido_path(pedido)
+      expect(response.body).to include_json(
+        pedido_itens: [
+          {
+            id: /\d*/,
+            quantidade: /(?:\d*\.\d*|\d)/,
+            valor_unitario: /(?:\d*\.\d*|\d)/,
+            valor_total: /(?:\d*\.\d*|\d)/,
+            produto: {
+              id: /\d*/,
+              descricao: /.*/
+            }
+          }
+        ]
+      )
     end
   end
 

@@ -7,8 +7,12 @@ FactoryBot.define do
     prazo_entrega { 0 }
     data_entrega { nil }
 
-    after(:build) do |pedido|
-      pedido.pedido_itens << build(:pedido_item, pedido: pedido)
+    transient do
+      itens_count { 10 }
+    end
+
+    after(:build) do |pedido, vars|
+      pedido.pedido_itens = build_list(:pedido_item, vars.itens_count, pedido: pedido)
     end
   end
 end

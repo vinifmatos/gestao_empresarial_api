@@ -20,6 +20,16 @@ class Pedido < ApplicationRecord
     valor
   end
 
+  def as_json(_options = {})
+    super(
+      # root: true,
+      except: %i[created_at updated_at],
+      include: {
+        pedido_itens: { only: %i[id quantidade valor_unitario valor_total], include: { produto: { only: %i[id descricao] } } }
+      }
+    )
+  end
+
   private
 
   def valida_data_entrega
