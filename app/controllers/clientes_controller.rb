@@ -5,7 +5,7 @@ class ClientesController < ApplicationController
 
   # GET /clientes
   def index
-    @clientes = Cliente.all
+    @clientes = Cliente.all.includes(:endereco_cliente)
 
     render json: @clientes
   end
@@ -51,7 +51,7 @@ class ClientesController < ApplicationController
   def cliente_params
     params.require(:cliente).permit(
       :nome, :telefone, :email,
-      endereco_cliente_attributes: %i[id logradouro numero bairro cidade cep]
+      endereco_cliente_attributes: %i[id logradouro numero bairro cidade cep complemento]
     )
   end
 end

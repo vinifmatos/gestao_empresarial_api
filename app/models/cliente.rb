@@ -11,7 +11,7 @@ class Cliente < ApplicationRecord
     super(
       # root: true,
       except: %i[created_at updated_at],
-      include: { endereco_cliente: { only: %i[id logradouro numero bairro cidade cep] } }
+      include: { endereco_cliente: { only: %i[id logradouro numero bairro cidade cep complemento] } }
     )
   end
 end
