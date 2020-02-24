@@ -7,7 +7,7 @@ class ClientesController < ApplicationController
   def index
     @clientes = Cliente.all.includes(:endereco_cliente)
 
-    render json: @clientes
+    paginate json: @clientes#, per_page: params[:per_page]
   end
 
   # GET /clientes/1
