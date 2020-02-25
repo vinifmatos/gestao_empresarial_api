@@ -9,9 +9,9 @@ RSpec.describe 'Caixas', type: :request do
 
   describe 'GET /caixas' do
     it 'retorna código 200 e um array com os lançamentos' do
-      get caixas_path
+      get caixas_path, params: { page: 1, per_page: 25 }
       expect(response).to have_http_status(200)
-      expect(response.body).to include_json(Caixa.all.as_json)
+      expect(response.body).to include_json(Caixa.all.page(1).per(25).as_json)
     end
   end
 
