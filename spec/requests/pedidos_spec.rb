@@ -9,9 +9,9 @@ RSpec.describe 'Pedidos', type: :request do
 
   describe 'GET /pedidos' do
     it 'retorna código 200 e um array com os pedidos' do
-      get pedidos_path
+      get pedidos_path, params: { page: 1, per_page: 25 }
       expect(response).to have_http_status(200)
-      expect(response.body).to include_json(Pedido.all.as_json)
+      expect(response.body).to include_json(Pedido.all.page(1).per(25).as_json)
     end
 
     it 'retorna um array com os itens do pedido e o produto de cada item' do

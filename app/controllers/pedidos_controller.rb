@@ -5,14 +5,14 @@ class PedidosController < ApplicationController
 
   # GET /pedidos
   def index
-    @pedidos = Pedido.all.includes(pedido_itens: [:produto])
+    @pedidos = Pedido.all.includes(:cliente, pedido_itens: [:produto])
 
     paginate json: @pedidos
   end
 
   # GET /pedidos/1
   def show
-    @pedido = Pedido.includes(pedido_itens: [:produto]).find(params[:id])
+    @pedido = Pedido.includes(:cliente, pedido_itens: [:produto]).find(params[:id])
     render json: @pedido
   end
 
@@ -52,7 +52,7 @@ class PedidosController < ApplicationController
   def pedido_params
     params.require(:pedido).permit(
       :cliente_id, :situacao, :prazo_entrega,
-      :data_entrega,
+      :data_entrega, :data,
       pedido_itens_attributes: %i[id produto_id quantidade valor_unitario valor_total _destroy]
     )
   end

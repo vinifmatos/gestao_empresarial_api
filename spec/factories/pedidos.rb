@@ -6,6 +6,7 @@ FactoryBot.define do
     situacao { :em_aberto }
     prazo_entrega { 0 }
     data_entrega { nil }
+    data { Faker::Date.in_date_period }
 
     transient do
       itens_count { 10 }

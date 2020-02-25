@@ -44,5 +44,13 @@ RSpec.describe Pedido, type: :model do
         expect(@pedido.errors[:data_entrega]).to include('deve ser maior que a data do pedido')
       end
     end
+
+    context '#data' do
+      it 'não pode estar em branco' do
+        @pedido.data = nil
+        expect(@pedido).not_to be_valid
+        expect(@pedido.errors[:data]).to include('não pode ficar em branco')
+      end
+    end
   end
 end
