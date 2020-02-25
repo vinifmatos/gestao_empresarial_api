@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class FornecedoresController < ApplicationController
-  before_action :set_fornecedor, only: [:show, :update, :destroy]
+  before_action :set_fornecedor, only: %i[show update destroy]
 
   # GET /fornecedores
   def index
     @fornecedores = Fornecedor.all
 
-    render json: @fornecedores
+    paginate json: @fornecedores
   end
 
   # GET /fornecedores/1
@@ -39,13 +41,14 @@ class FornecedoresController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fornecedor
-      @fornecedor = Fornecedor.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def fornecedor_params
-      params.require(:fornecedor).permit(:nome, :telefone, :email)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fornecedor
+    @fornecedor = Fornecedor.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def fornecedor_params
+    params.require(:fornecedor).permit(:nome, :telefone, :email)
+  end
 end

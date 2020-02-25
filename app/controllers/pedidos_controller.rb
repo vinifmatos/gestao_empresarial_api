@@ -7,7 +7,7 @@ class PedidosController < ApplicationController
   def index
     @pedidos = Pedido.all.includes(pedido_itens: [:produto])
 
-    render json: @pedidos
+    paginate json: @pedidos
   end
 
   # GET /pedidos/1

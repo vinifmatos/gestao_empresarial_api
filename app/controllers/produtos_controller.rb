@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class ProdutosController < ApplicationController
-  before_action :set_produto, only: [:show, :update, :destroy]
+  before_action :set_produto, only: %i[show update destroy]
 
   # GET /produtos
   def index
     @produtos = Produto.all
 
-    render json: @produtos
+    paginate json: @produtos
   end
 
   # GET /produtos/1
@@ -39,13 +41,14 @@ class ProdutosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_produto
-      @produto = Produto.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def produto_params
-      params.require(:produto).permit(:descricao, :preco)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_produto
+    @produto = Produto.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def produto_params
+    params.require(:produto).permit(:descricao, :preco)
+  end
 end

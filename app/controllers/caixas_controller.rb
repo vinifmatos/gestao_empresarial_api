@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class CaixasController < ApplicationController
-  before_action :set_caixa, only: [:show, :update, :destroy]
+  before_action :set_caixa, only: %i[show update destroy]
 
   # GET /caixas
   def index
     @caixas = Caixa.all
 
-    render json: @caixas
+    paginate json: @caixas
   end
 
   # GET /caixas/1
@@ -39,13 +41,14 @@ class CaixasController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_caixa
-      @caixa = Caixa.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def caixa_params
-      params.require(:caixa).permit(:pedido_id, :tipo, :situacao, :valor, :data, :data_baixa)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_caixa
+    @caixa = Caixa.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def caixa_params
+    params.require(:caixa).permit(:pedido_id, :tipo, :situacao, :valor, :data, :data_baixa)
+  end
 end
