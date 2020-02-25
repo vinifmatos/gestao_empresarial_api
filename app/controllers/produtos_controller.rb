@@ -38,6 +38,8 @@ class ProdutosController < ApplicationController
   # DELETE /produtos/1
   def destroy
     @produto.destroy
+  rescue ActiveRecord::InvalidForeignKey
+    render json: { produto: 'Não é possível excluir esse produto. Ele já foi utilizado em um pedido.' }, status: :unprocessable_entity
   end
 
   private
