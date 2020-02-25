@@ -7,11 +7,11 @@ class Cliente < ApplicationRecord
 
   accepts_nested_attributes_for :endereco_cliente
 
-  def as_json(_options = {})
-    super(
-      # root: true,
-      except: %i[created_at updated_at],
-      include: { endereco_cliente: { only: %i[id logradouro numero bairro cidade cep complemento] } }
-    )
+  def as_json(options = {})
+    options[:except] ||= []
+    options[:except] += %i[created_at updated_at]
+    options[:include] ||= {}
+    options[:include].merge!(endereco_cliente: { only: %i[id logradouro numero bairro cidade cep complemento] })
+    super(options)
   end
 end
