@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PedidosController < ApplicationController
-  before_action :set_pedido, only: %i[update destroy]
+  before_action :set_pedido, only: %i[show update destroy]
 
   # GET /pedidos
   def index
@@ -12,7 +12,6 @@ class PedidosController < ApplicationController
 
   # GET /pedidos/1
   def show
-    @pedido = Pedido.includes(:cliente, pedido_itens: [:produto]).find(params[:id])
     render json: @pedido
   end
 
@@ -45,7 +44,7 @@ class PedidosController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_pedido
-    @pedido = Pedido.find(params[:id])
+    @pedido = Pedido.includes(:cliente, pedido_itens: [:produto]).find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
