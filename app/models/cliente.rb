@@ -7,6 +7,18 @@ class Cliente < ApplicationRecord
 
   accepts_nested_attributes_for :endereco_cliente
 
+  def self.listar_por_nome(nome)
+    key = 'unaccent(nome) ~* unaccent(?)'
+    cond_str = []
+    args = []
+    nome.split(' or ').each do |param|
+      cond_str << key
+      args << param
+    end
+    args = [cond_str.join(' ')] + args
+    where(args).includes(:endereco_cliente)
+  end
+
   def as_json(options = {})
     options[:except] ||= []
     options[:except] += %i[created_at updated_at]
