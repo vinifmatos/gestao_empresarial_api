@@ -5,10 +5,16 @@ class ClientesController < ApplicationController
 
   # GET /clientes
   def index
-    @clientes = if params[:pesquisa_por_nome].present?
-                  Cliente.listar_por_nome(params[:pesquisa_por_nome])
+    @clientes = Cliente.all.order(:id).includes(:endereco_cliente)
+
+    paginate json: @clientes
+  end
+
+  def listar_por_nome
+    @clientes = if params[:nome].present?
+                  Cliente.listar_por_nome(params[:nome])
                 else
-                  Cliente.all.includes(:endereco_cliente)
+                  Cliente.all.order(:nome).includes(:endereco_cliente)
                 end
 
     paginate json: @clientes

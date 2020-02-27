@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :fornecedores
   resources :caixas
@@ -6,5 +8,5 @@ Rails.application.routes.draw do
   resources :produtos
   resources :endereco_clientes
   resources :clientes
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  post '/listar_clientes_por_nome', to: 'clientes#listar_por_nome', as: 'listar_por_nome'
 end

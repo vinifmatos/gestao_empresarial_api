@@ -16,7 +16,7 @@ class Cliente < ApplicationRecord
       args << param
     end
     args = [cond_str.join(' ')] + args
-    where(args).includes(:endereco_cliente)
+    where(args).order(:nome).includes(:endereco_cliente)
   end
 
   def as_json(options = {})
