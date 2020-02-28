@@ -9,4 +9,16 @@ class Produto < ApplicationRecord
     options[:except] += %i[created_at updated_at]
     super(options)
   end
+
+  def self.listar_por_descricao(descricao)
+    key = 'unaccent(descricao) ~* unaccent(?)'
+    cond_str = []
+    args = []
+    descricao.split(' or ').each do |param|
+      cond_str << key
+      args << param
+    end
+    args = [cond_str.join(' ')] + args
+    where(args).order(:descricao)
+  end
 end

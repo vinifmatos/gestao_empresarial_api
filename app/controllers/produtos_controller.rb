@@ -3,9 +3,19 @@
 class ProdutosController < ApplicationController
   before_action :set_produto, only: %i[show update destroy]
 
+  def listar_por_descricao
+    @produtos = if params[:descricao].present?
+                  Produto.listar_por_descricao(params[:descricao])
+                else
+                  Produto.all.order(:id)
+                end
+
+    paginate json: @produtos
+  end
+
   # GET /produtos
   def index
-    @produtos = Produto.all
+    @produtos = Produto.all.order(:id)
 
     paginate json: @produtos
   end
