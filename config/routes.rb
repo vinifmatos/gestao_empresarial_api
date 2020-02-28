@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   resources :produtos
   resources :endereco_clientes
   resources :clientes
-  post '/listar_clientes_por_nome', to: 'clientes#listar_por_nome', as: 'listar_por_nome'
+  get '/listar_clientes_por_nome', to: 'clientes#listar_por_nome', as: 'listar_por_nome'
 end
